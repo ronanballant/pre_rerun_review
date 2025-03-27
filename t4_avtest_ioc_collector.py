@@ -86,7 +86,7 @@ if iocs:
 
     if broken_iocs:
         broken_ioc_writer = FileProcessor(
-            broken_ioc_output_path
+            logger, broken_ioc_output_path
         )
         broken_ioc_writer.append_file(broken_iocs)
 
