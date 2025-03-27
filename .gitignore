@@ -1,0 +1,13 @@
+# Hidden Files
+.*
+!.gitignore
+
+# Data files
+*.txt
+*.csv
+*.json
+!requirements.txt
+
+# Python files
+tb_cred.py
+config.py 
