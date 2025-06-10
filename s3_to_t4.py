@@ -46,6 +46,9 @@ s3_client = S3Client(
 
 s3_client.initialise_client()
 
+s3_client.get_file(action_id_totals_dest_path)
+s3_client.save_file_locally(action_id_totals_local_file_path)
+
 s3_client.get_file(ptld_dest_file_path)
 s3_client.save_file_locally(ptld_local_file_path)
 
@@ -72,9 +75,6 @@ s3_client.save_file_locally(total_allowed_carrier_traffic_local_file_path)
 
 s3_client.get_file(total_detected_carrier_traffic_dest_path)
 s3_client.save_file_locally(total_detected_carrier_traffic_local_file_path)
-
-s3_client.get_file(action_id_totals_dest_path)
-s3_client.save_file_locally(action_id_totals_local_file_path)
 
 s3_client.get_file(carrier_totals_dest_path)
 s3_client.save_file_locally(carrier_totals_local_file_path)
