@@ -22,7 +22,7 @@ class BenignIOC:
 
         self.fqdn = fqdn[:-1] if fqdn.endswith(".") else fqdn
         self.timestamp_to_date()
-        self.tool_source = "benign_ax_review"
+        self.tool_source = "pre_rerun_ax_review"
         if self.category.lower() == "malware":
             self.matched_keyword = "genmalware"
             self.keywords = [self.matched_keyword]
@@ -45,7 +45,7 @@ class BenignIOC:
         self.mongo_insert['matched_keyword'] = self.matched_keyword
         self.mongo_insert['keywords'] = self.keywords
         self.mongo_insert['external_links'] = None
-        self.mongo_insert['report'] = f"daily_benign_ax_review_{self.date_string}"
+        self.mongo_insert['report'] = f"daily_pre_rerun_ax_review_{self.date_string}"
     
     def timestamp_to_date(self):
         self.date_string = datetime.fromtimestamp(self.insertion_timestamp).strftime("%Y-%m-%d")

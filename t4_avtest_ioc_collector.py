@@ -12,7 +12,7 @@ from key_manager import KeyManager
 from sec_feed_dupe_checker import SecFeedDupeChecker
 from s3_client import S3Client
 
-logger = get_logger("logs_avtest_automation.txt")
+logger = get_logger("logs_avtest_ioc_collector.txt")
 
 mongo_client = MongoManager(logger)
 mongo_client.initialise_client()
@@ -49,7 +49,7 @@ if iocs:
     logger.info(f"Found {dupes} duplications")
     
     if approved_iocs:
-        key_manager = KeyManager(logger, cert_path, key_path, ssh_key_path,)
+        key_manager = KeyManager(logger, cert_path, key_path, ssh_key_path)
         key_manager.get_ssh_key("rballant-ssh")
 
         git_manager = GitRepoManager(logger, etp_repo_path)
@@ -63,11 +63,9 @@ if iocs:
         ioc_writer.append_file(approved_iocs)
         s3_client.write_file(ioc_output_path, current_blacklist_s3_path)
 
-        branch_name = f'avtest_iocs/{datetime.today().strftime("%Y-%m-%d-%H00")}'
-        git_manager.create_new_branch(branch_name)
         git_manager.git_add([ioc_output_path])
-        git_manager.git_commit("AVTest Automation")
-        git_manager.push_changes(branch_name)
+        git_manager.git_commit("AVTest Pre-Rerun Review")
+        git_manager.push_to_master()
         git_manager.get_pr_link()
         git_manager.kill_ssh_agent()
         key_manager.remove_ssh_keys()
