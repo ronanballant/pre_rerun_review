@@ -156,7 +156,7 @@ class S3Client:
 
     def get_file(self, file_path):
         self.logger.info(f"Requesting {file_path}")
-        response = self.s3_client.get_object(
+        response = self.get_object(
             Bucket=self.secops_s3_bucket, 
             Key=file_path
         )
