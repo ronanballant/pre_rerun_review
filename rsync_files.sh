@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ----------- CONFIG -----------
-LOG_FILE="/app01/secops_code/avtest_pre_rerun_review/pre_rerun_review/logs/rsync_upload.log"
+LOG_FILE="/app01/secops_code/avtest_pre_rerun_review/pre_rerun_review/rsync_upload.log"
 REMOTE_HOST="t3tools.akamai.com"
 REMOTE_BASE="/app01/opt/splunk/var/log/avtest_pre_rerun_review"
 LOCAL_BASE="/app01/secops_code/avtest_pre_rerun_review/pre_rerun_review/data_files"
@@ -9,6 +9,7 @@ LOCAL_BASE="/app01/secops_code/avtest_pre_rerun_review/pre_rerun_review/data_fil
 
 # List of files to sync (just file names)
 FILES=(
+    "current_blacklist.csv"
     "already_exists_but_allowed.csv"
     "detection_sources.csv"
     "etp_action_id_totals.csv"

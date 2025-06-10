@@ -30,7 +30,9 @@ from config import (get_logger, destination_region,
     action_id_totals_local_file_path,
     carrier_totals_local_file_path,
     low_detections_local_file_path,
-    already_exists_but_allowed_local_file_path)
+    already_exists_but_allowed_local_file_path,
+    current_blacklist_dest_path,
+    current_blacklist_local_file_path)
 
 logger = get_logger("logs_s3_t4_transfer.txt")
 
@@ -48,6 +50,9 @@ s3_client.initialise_client()
 
 s3_client.get_file(action_id_totals_dest_path)
 s3_client.save_file_locally(action_id_totals_local_file_path)
+
+s3_client.get_file(current_blacklist_dest_path)
+s3_client.save_file_locally(current_blacklist_local_file_path)
 
 s3_client.get_file(ptld_dest_file_path)
 s3_client.save_file_locally(ptld_local_file_path)
