@@ -156,15 +156,14 @@ class S3Client:
 
     def get_file(self, file_path):
         self.logger.info(f"Requesting {file_path}")
-        response = self.get_object(
+        response = self.s3_client.get_object(
             Bucket=self.secops_s3_bucket, 
             Key=file_path
         )
         self.file_content = response['Body'].read().decode('utf-8')
     
     def save_file_locally(self, filename):
-        with open(filename, "w") as file:
-            writer = csv.writer(file)
-            writer.writerows(self.file_content)
+        with open(filename, "w") as f:
+            f.write(self.file_content)
     
 

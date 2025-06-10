@@ -44,6 +44,8 @@ s3_client = S3Client(
     directory_prefix,
 )
 
+s3_client.initialise_client()
+
 s3_client.get_file(ptld_dest_file_path)
 s3_client.save_file_locally(ptld_local_file_path)
 
