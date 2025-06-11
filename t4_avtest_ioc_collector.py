@@ -41,6 +41,16 @@ iocs = s3_client.iocs
 broken_iocs = s3_client.broken_iocs
 
 if iocs:
+    key_manager = KeyManager(logger, cert_path, key_path, ssh_key_path)
+    key_manager.get_ssh_key("rballant-ssh")
+
+    git_manager = GitRepoManager(logger, etp_repo_path)
+    git_manager.start_ssh_agent()
+    git_manager.add_ssh_key(ssh_key_path)
+    git_manager.configure_user("rballant", "rballant@akamai.com")
+    git_manager.checkout_master()
+    git_manager.git_pull()
+
     duplication_checker = SecFeedDupeChecker(logger, secops_feed_directory, iocs)
     duplication_checker.load_secops_feed_files()
     duplication_checker.find_new_entries()
@@ -49,16 +59,6 @@ if iocs:
     logger.info(f"Found {dupes} duplications")
     
     if approved_iocs:
-        key_manager = KeyManager(logger, cert_path, key_path, ssh_key_path)
-        key_manager.get_ssh_key("rballant-ssh")
-
-        git_manager = GitRepoManager(logger, etp_repo_path)
-        git_manager.start_ssh_agent()
-        git_manager.add_ssh_key(ssh_key_path)
-        git_manager.configure_user("rballant", "rballant@akamai.com")
-        git_manager.checkout_master()
-        git_manager.git_pull()
-
         ioc_writer = FileProcessor(logger, ioc_output_path)
         ioc_writer.append_file(approved_iocs)
         s3_client.write_file(ioc_output_path, current_blacklist_s3_path)
